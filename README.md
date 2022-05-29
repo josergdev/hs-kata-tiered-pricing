@@ -44,7 +44,7 @@ development process:
 
 # Haskell project
 
-Use Haskell compiler with [ghcup](https://www.haskell.org/ghcup/)
+Install Haskell compiler with [ghcup](https://www.haskell.org/ghcup/)
 
 ## Run tests
 
