@@ -19,20 +19,20 @@ data Tier = Tier
   }
   deriving (Show)
 
-newtype TieredPricing = TieredPricing {tiers :: [Tier]} deriving (Show)
+newtype Tiers = Tiers {tiers :: [Tier]} deriving (Show)
 
-tierFor :: TieredPricing -> Integer -> Tier
-tierFor tp n = head $ filter (\t -> (inRange . range) t n) (tiers tp)
-
-price :: TieredPricing -> Integer -> Integer
-price tp n = n * unitPrice (tierFor tp n)
-
-ranges :: TieredPricing
+ranges :: Tiers
 ranges =
-  TieredPricing
+  Tiers
     [ Tier (Finite 1 2) 299,
       Tier (Finite 3 10) 239,
       Tier (Finite 11 25) 219,
       Tier (Finite 26 50) 199,
       Tier (PositiveInfinite 51) 149
     ]
+
+search :: Tiers -> Integer -> Tier
+search ts n = head $ filter (\t -> (inRange . range) t n) (tiers ts)
+
+price :: Tiers -> Integer -> Integer
+price ts n = n * unitPrice (search ts n)
