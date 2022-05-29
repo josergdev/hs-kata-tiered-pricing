@@ -6,6 +6,12 @@ data Range = Range
   }
   deriving (Show)
 
+rangeMin :: Integer -> Range
+rangeMin a = Range (Just a) Nothing
+
+rangeMinMax :: Integer -> Integer -> Range
+rangeMinMax a b = Range (Just a) (Just b)
+
 inRange :: Range -> Integer -> Bool
 inRange (Range Nothing Nothing) n = True
 inRange (Range Nothing (Just y)) n = n <= y
@@ -29,9 +35,9 @@ price tp n = n * unitPrice (tierFor tp n)
 ranges :: TieredPricing
 ranges =
   TieredPricing
-    [ Tier (Range (Just 1) (Just 2)) 299,
-      Tier (Range (Just 3) (Just 10)) 239,
-      Tier (Range (Just 11) (Just 25)) 219,
-      Tier (Range (Just 26) (Just 50)) 199,
-      Tier (Range (Just 51) Nothing) 149
+    [ Tier (rangeMinMax 1 2) 299,
+      Tier (rangeMinMax 3 10) 239,
+      Tier (rangeMinMax 11 25) 219,
+      Tier (rangeMinMax 26 50) 199,
+      Tier (rangeMin 51) 149
     ]
