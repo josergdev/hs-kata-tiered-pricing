@@ -24,7 +24,7 @@ data Tier = Tier
   }
   deriving (Show)
 
-newtype TieredPricing = TieredPricing {tiers :: [Tier]}
+newtype TieredPricing = TieredPricing {tiers :: [Tier]} deriving (Show)
 
 tierFor :: TieredPricing -> Integer -> Tier
 tierFor tp n = head $ filter (\t -> (inRange . range) t n) (tiers tp)
