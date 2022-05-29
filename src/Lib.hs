@@ -2,15 +2,15 @@ module Lib where
 
 data Range
   = Finite Integer Integer
-  | NegativeInfinity Integer
-  | PositiveInfinity Integer
-  | Infinity
+  | NegativeInfinite Integer
+  | PositiveInfinite Integer
+  | Infinite
   deriving (Show)
 
 inRange :: Range -> Integer -> Bool
-inRange Infinity n = True
-inRange (NegativeInfinity y) n = n <= y
-inRange (PositiveInfinity x) n = n >= x
+inRange Infinite n = True
+inRange (NegativeInfinite y) n = n <= y
+inRange (PositiveInfinite x) n = n >= x
 inRange (Finite x y) n = (x <= n) && (n <= y)
 
 data Tier = Tier
@@ -34,5 +34,5 @@ ranges =
       Tier (Finite 3 10) 239,
       Tier (Finite 11 25) 219,
       Tier (Finite 26 50) 199,
-      Tier (PositiveInfinity 51) 149
+      Tier (PositiveInfinite 51) 149
     ]
