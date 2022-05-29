@@ -8,7 +8,7 @@ data Range
   deriving (Show)
 
 inRange :: Range -> Integer -> Bool
-inRange Infinite n = True
+inRange Infinite _ = True
 inRange (NegativeInfinite y) n = n <= y
 inRange (PositiveInfinite x) n = n >= x
 inRange (Finite x y) n = (x <= n) && (n <= y)
