@@ -1,22 +1,17 @@
 module Lib where
 
-data Range = Range
-  { min :: Maybe Integer,
-    max :: Maybe Integer
-  }
+data Range
+  = Finite Integer Integer
+  | NegativeInfinity Integer
+  | PositiveInfinity Integer
+  | Infinity
   deriving (Show)
 
-rangeMin :: Integer -> Range
-rangeMin a = Range (Just a) Nothing
-
-rangeMinMax :: Integer -> Integer -> Range
-rangeMinMax a b = Range (Just a) (Just b)
-
 inRange :: Range -> Integer -> Bool
-inRange (Range Nothing Nothing) n = True
-inRange (Range Nothing (Just y)) n = n <= y
-inRange (Range (Just x) Nothing) n = n >= x
-inRange (Range (Just x) (Just y)) n = (x <= n) && (n <= y)
+inRange Infinity n = True
+inRange (NegativeInfinity y) n = n <= y
+inRange (PositiveInfinity x) n = n >= x
+inRange (Finite x y) n = (x <= n) && (n <= y)
 
 data Tier = Tier
   { range :: Range,
@@ -35,9 +30,9 @@ price tp n = n * unitPrice (tierFor tp n)
 ranges :: TieredPricing
 ranges =
   TieredPricing
-    [ Tier (rangeMinMax 1 2) 299,
-      Tier (rangeMinMax 3 10) 239,
-      Tier (rangeMinMax 11 25) 219,
-      Tier (rangeMinMax 26 50) 199,
-      Tier (rangeMin 51) 149
+    [ Tier (Finite 1 2) 299,
+      Tier (Finite 3 10) 239,
+      Tier (Finite 11 25) 219,
+      Tier (Finite 26 50) 199,
+      Tier (PositiveInfinity 51) 149
     ]
