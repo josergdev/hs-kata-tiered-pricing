@@ -1,5 +1,5 @@
-import Lib
 import Test.HUnit
+import Tier
 
 testData :: [(Integer, Integer)]
 testData =
@@ -29,7 +29,7 @@ priceTest =
                 assertEqual
                   ("For " <> show n <> " subscriptions, price should be " <> show p)
                   p
-                  (price ranges n)
+                  (price tiers n)
             )
       )
       testData
